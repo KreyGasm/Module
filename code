@@ -1,0 +1,39 @@
+import copy
+
+class Student:
+    def __init__(self, name, student_id, major):
+        self.name = name
+        self.student_id = student_id
+        self.major = major
+
+    def clone(self):
+        # Використовуємо deepcopy для створення копії об'єкта
+        return copy.deepcopy(self)
+
+class University:
+    def __init__(self):
+        self.students = []
+
+    def add_student(self, student):
+        self.students.append(student)
+
+    def get_student(self, index):
+        # Використовуємо прототип для створення копії студента за індексом
+        return self.students[index].clone()
+
+# Створення університету
+university = University()
+
+# Додавання початкового студента
+initial_student = Student("John Doe", "12345", "Computer Science")
+university.add_student(initial_student)
+
+# Створення нового студента за допомогою прототипу
+new_student = university.get_student(0)
+new_student.name = "Jane Smith"
+new_student.student_id = "67890"
+new_student.major = "Electrical Engineering"
+
+# Виведення інформації про студентів
+print("Initial Student:", initial_student.name, initial_student.student_id, initial_student.major)
+print("New Student:", new_student.name, new_student.student_id, new_student.major)
